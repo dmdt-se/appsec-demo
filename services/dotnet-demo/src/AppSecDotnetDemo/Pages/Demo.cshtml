@@ -1,0 +1,110 @@
+@page
+@model AppSecDotnetDemo.Pages.DemoModel
+@{
+    ViewData["Title"] = "Demo";
+}
+
+<h1>Actions</h1>
+
+<div>
+    <div class="card mb-4 @(Model.CurrentScenario == "init-db" ? "border-primary border-3" : "")">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">Initialize database</h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <input type="hidden" name="Scenario" value="init-db" />
+                <button type="submit" class="btn btn-outline-primary">Initialize Database</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card mb-4 @(Model.CurrentScenario == "baseline" ? "border-primary border-3" : "")">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">Baseline (legitimate plugin)</h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <input type="hidden" name="Scenario" value="baseline" />
+                <button type="submit" class="btn btn-outline-success">Run Baseline</button>
+            </form>
+            <div class="mt-2">
+                <small class="text-muted"><strong>Executes:</strong> LegitimatePlugin.DataProcessor.Process()</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4 @(Model.CurrentScenario == "sql-attack" ? "border-primary border-3" : "")">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">SQL injection</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card border-danger">
+                        <div class="card-header bg-danger text-white">
+                            <strong>SQL Injection Attack</strong>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+                                <input type="hidden" name="Scenario" value="sql-attack" />
+                                <input type="hidden" name="Parameter" value="' OR '1'='1' --" />
+                                <button type="submit" class="btn btn-danger w-100">Execute Attack</button>
+                            </form>
+                            <div class="mt-2">
+                                <small class="text-muted"><code>SearchUsers("' OR '1'='1' --")</code></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4 @(Model.CurrentScenario == "cmd-attack" ? "border-primary border-3" : "")">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">Command injection</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card border-danger">
+                        <div class="card-header bg-danger text-white">
+                            <strong>Command Injection Attack</strong>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+                                <input type="hidden" name="Scenario" value="cmd-attack" />
+                                <input type="hidden" name="Parameter" value="cat /etc/passwd" />
+                                <button type="submit" class="btn btn-danger w-100">Execute Attack</button>
+                            </form>
+                            <div class="mt-2">
+                                <small class="text-muted"><code>ExecuteCommand("cat /etc/passwd")</code></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.Result != null)
+    {
+        <div class="card mb-4">
+            <div class="card-header @(Model.Result.Success ? "bg-success text-white" : "bg-danger text-white")">
+                <strong>@(Model.Result.Success ? "Execution Successful" : "Execution Failed")</strong>
+                <span class="float-end">@Model.Result.ExecutionTime.TotalMilliseconds.ToString("F2") ms</span>
+            </div>
+            <div class="card-body">
+                @if (Model.Result.Success)
+                {
+                    <pre class="mb-0" style="white-space: pre-wrap; word-wrap: break-word;">@Model.Result.Output</pre>
+                }
+                else
+                {
+                    <pre class="text-danger mb-0" style="white-space: pre-wrap; word-wrap: break-word;">@Model.Result.Error</pre>
+                }
+            </div>
+        </div>
+    }
+</div>

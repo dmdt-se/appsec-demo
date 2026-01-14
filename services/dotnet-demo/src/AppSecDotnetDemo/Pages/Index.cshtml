@@ -1,0 +1,135 @@
+@page
+@model AppSecDotnetDemo.Pages.IndexModel
+@{
+    ViewData["Title"] = "AppSec .NET Demo";
+}
+
+<style>
+    .hero-section {
+        text-align: left;
+        padding: 48px;
+        background: var(--surface);
+        color: var(--ink);
+        border-radius: 20px;
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        margin-bottom: 32px;
+    }
+    .hero-section h1 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+    }
+    .hero-section .lead {
+        font-size: 1.15rem;
+        color: var(--ink-muted);
+        margin-bottom: 0;
+        max-width: 720px;
+    }
+    .btn-start {
+        background-color: var(--accent-strong);
+        color: #ffffff;
+        font-size: 1rem;
+        padding: 12px 28px;
+        border-radius: 50px;
+        text-decoration: none;
+        display: inline-block;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-start:hover {
+        background-color: var(--accent);
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(91, 82, 214, 0.25);
+    }
+    .feature-cards {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-bottom: 40px;
+    }
+    .feature-card {
+        flex: 1;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: var(--shadow);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(16, 22, 27, 0.12);
+    }
+    .feature-card h3 {
+        color: var(--ink);
+        margin-bottom: 15px;
+        font-size: 1.35rem;
+    }
+    .badge-status {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+        margin-bottom: 12px;
+        border-radius: 999px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        display: inline-flex;
+        font-weight: 600;
+    }
+    .badge-safe {
+        background: rgba(91, 82, 214, 0.16);
+        color: var(--accent-strong);
+    }
+    .badge-attack {
+        background: rgba(196, 74, 63, 0.16);
+        color: #8e2c24;
+    }
+    .info-box {
+        background-color: var(--surface);
+        border: 1px solid var(--line);
+        padding: 22px;
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+    }
+    .info-box h4 {
+        color: var(--accent-strong);
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="container">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <h1>AppSec .NET Demo</h1>
+        <p class="lead">
+            Runtime protection signals for .NET execution paths.
+        </p>
+    </div>
+
+    <!-- Feature Cards -->
+    <div class="feature-cards">
+        <div class="feature-card">
+            <span class="badge-status badge-safe">Safe</span>
+            <h3>Baseline Behavior</h3>
+            <p>
+                Legitimate plugin execution.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <span class="badge-status badge-attack">Attack</span>
+            <h3>SQL Injection</h3>
+            <p>
+                Tainted input in SQL queries.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <span class="badge-status badge-attack">Attack</span>
+            <h3>Command Injection</h3>
+            <p>
+                Shell execution from untrusted input.
+            </p>
+        </div>
+    </div>
+</div>

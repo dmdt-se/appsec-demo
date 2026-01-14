@@ -1,0 +1,91 @@
+version: "3.9"
+
+services:
+  traefik:
+    image: traefik:v2.11
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "21000:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - appsec
+
+  portal:
+    build: ./portal
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portal.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.portal.entrypoints=web"
+      - "traefik.http.routers.portal.priority=1"
+      - "traefik.http.services.portal.loadbalancer.server.port=80"
+    networks:
+      - appsec
+
+  waf:
+    image: owasp/modsecurity-crs:nginx
+    profiles:
+      - waf
+    environment:
+      - MODSEC_RULE_ENGINE=On
+    volumes:
+      - ./services/waf/conf.d:/etc/nginx/conf.d:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.waf.rule=PathPrefix(`/waf`)"
+      - "traefik.http.routers.waf.entrypoints=web"
+      - "traefik.http.routers.waf.priority=9"
+      - "traefik.http.services.waf.loadbalancer.server.port=80"
+    networks:
+      - appsec
+
+  dotnet:
+    build: ./services/dotnet-demo
+    environment:
+      - DemoSettings__PathBase=/dotnet
+      - DemoSettings__AssembliesPath=/app/assemblies
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dotnet.rule=PathPrefix(`/dotnet`)"
+      - "traefik.http.routers.dotnet.entrypoints=web"
+      - "traefik.http.routers.dotnet.priority=10"
+      - "traefik.http.services.dotnet.loadbalancer.server.port=8080"
+    networks:
+      - appsec
+
+  juiceshop:
+    image: bkimminich/juice-shop:latest
+    profiles:
+      - thirdparty
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.juiceshop.rule=PathPrefix(`/juice`)"
+      - "traefik.http.routers.juiceshop.entrypoints=web"
+      - "traefik.http.routers.juiceshop.priority=5"
+      - "traefik.http.middlewares.juiceshop-stripprefix.stripprefix.prefixes=/juice"
+      - "traefik.http.routers.juiceshop.middlewares=juiceshop-stripprefix@docker"
+      - "traefik.http.services.juiceshop.loadbalancer.server.port=3000"
+    networks:
+      - appsec
+
+  webgoat:
+    image: webgoat/webgoat:latest
+    profiles:
+      - thirdparty
+    environment:
+      - SERVER_SERVLET_CONTEXT_PATH=/webgoat
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.webgoat.rule=PathPrefix(`/webgoat`)"
+      - "traefik.http.routers.webgoat.entrypoints=web"
+      - "traefik.http.routers.webgoat.priority=5"
+      - "traefik.http.services.webgoat.loadbalancer.server.port=8080"
+    networks:
+      - appsec
+
+networks:
+  appsec:
+    name: appsec-demo
