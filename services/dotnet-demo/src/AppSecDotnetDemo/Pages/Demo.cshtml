@@ -41,27 +41,20 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="card border-danger">
-                        <div class="card-header bg-danger text-white">
-                            <strong>SQL Injection Attack</strong>
+                    <form method="post" data-attack-form data-attack-id="sqli">
+                        <input type="hidden" name="Scenario" value="sql-attack" />
+                        <input type="hidden" name="Parameter" value="" data-attack-parameter />
+                        <div class="mb-3">
+                            <label class="form-label">Variant</label>
+                            <select class="form-select" data-attack-variant></select>
                         </div>
-                        <div class="card-body">
-                            <form method="post" data-attack-form data-attack-id="sqli">
-                                <input type="hidden" name="Scenario" value="sql-attack" />
-                                <input type="hidden" name="Parameter" value="" data-attack-parameter />
-                                <div class="mb-3">
-                                    <label class="form-label">Variant</label>
-                                    <select class="form-select" data-attack-variant></select>
-                                </div>
-                                <span class="badge bg-secondary mb-2" data-attack-compatibility></span>
-                                <div class="mb-2 text-muted" data-attack-description></div>
-                                <code class="d-block mb-3" data-attack-payload></code>
-                                <button type="submit" class="btn btn-danger w-100">Execute Attack</button>
-                            </form>
-                            <div class="mt-2">
-                                <small class="text-muted"><code>SearchUsers(payload)</code></small>
-                            </div>
-                        </div>
+                        <span class="badge bg-secondary mb-2" data-attack-compatibility></span>
+                        <div class="mb-2 text-muted" data-attack-description></div>
+                        <code class="d-block mb-3" data-attack-payload></code>
+                        <button type="submit" class="btn btn-danger w-100">Execute Attack</button>
+                    </form>
+                    <div class="mt-2">
+                        <small class="text-muted"><code>SearchUsers(payload)</code></small>
                     </div>
                 </div>
             </div>
@@ -75,27 +68,20 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="card border-danger">
-                        <div class="card-header bg-danger text-white">
-                            <strong>Command Injection Attack</strong>
+                    <form method="post" data-attack-form data-attack-id="cmdi">
+                        <input type="hidden" name="Scenario" value="cmd-attack" />
+                        <input type="hidden" name="Parameter" value="" data-attack-parameter />
+                        <div class="mb-3">
+                            <label class="form-label">Variant</label>
+                            <select class="form-select" data-attack-variant></select>
                         </div>
-                        <div class="card-body">
-                            <form method="post" data-attack-form data-attack-id="cmdi">
-                                <input type="hidden" name="Scenario" value="cmd-attack" />
-                                <input type="hidden" name="Parameter" value="" data-attack-parameter />
-                                <div class="mb-3">
-                                    <label class="form-label">Variant</label>
-                                    <select class="form-select" data-attack-variant></select>
-                                </div>
-                                <span class="badge bg-secondary mb-2" data-attack-compatibility></span>
-                                <div class="mb-2 text-muted" data-attack-description></div>
-                                <code class="d-block mb-3" data-attack-payload></code>
-                                <button type="submit" class="btn btn-danger w-100">Execute Attack</button>
-                            </form>
-                            <div class="mt-2">
-                                <small class="text-muted"><code>ExecuteCommand(payload)</code></small>
-                            </div>
-                        </div>
+                        <span class="badge bg-secondary mb-2" data-attack-compatibility></span>
+                        <div class="mb-2 text-muted" data-attack-description></div>
+                        <code class="d-block mb-3" data-attack-payload></code>
+                        <button type="submit" class="btn btn-danger w-100">Execute Attack</button>
+                    </form>
+                    <div class="mt-2">
+                        <small class="text-muted"><code>ExecuteCommand(payload)</code></small>
                     </div>
                 </div>
             </div>

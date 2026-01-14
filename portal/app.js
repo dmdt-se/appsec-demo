@@ -249,7 +249,7 @@ if (elements.copyPayload) {
   elements.copyPayload.addEventListener("click", copyActivePayload);
 }
 
-fetch("data/attacks.json")
+fetch("/data/attacks.json")
   .then((response) => {
     if (!response.ok) {
       throw new Error("Catalog fetch failed");
