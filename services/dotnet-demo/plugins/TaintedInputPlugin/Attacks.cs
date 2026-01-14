@@ -5,10 +5,9 @@ using Microsoft.Data.Sqlite;
 namespace TaintedInputPlugin;
 
 /// <summary>
-/// SECURITY DEMONSTRATION - Dynatrace RAP Detection Testing
-///
-/// These methods accept PARAMETERS to simulate user input flowing to sinks.
-/// This triggers Dynatrace's taint tracking detection.
+    /// SECURITY DEMONSTRATION - Taint tracking demo
+    ///
+    /// These methods accept PARAMETERS to simulate user input flowing to sinks.
 /// </summary>
 public class Attacks
 {
@@ -96,7 +95,6 @@ public class Attacks
                 results.AppendLine($"  [{reader["Id"]}] {reader["Name"]} - {reader["Email"]} ({reader["Role"]})");
             }
             results.AppendLine($"\nRecords returned: {count}");
-            results.AppendLine("\n[!] Dynatrace should detect: SQL Injection");
         }
         catch (Exception ex)
         {
@@ -151,7 +149,6 @@ public class Attacks
                 results.AppendLine("Stderr:");
                 results.AppendLine(error);
             }
-            results.AppendLine("\n[!] Dynatrace should detect: Command Injection");
         }
         catch (Exception ex)
         {
@@ -185,9 +182,8 @@ Available Methods (call with parameter):
     Attack: cat /etc/passwd
     Attack: id && whoami
 
-NOTE: Only SQL Injection and Command Injection are supported by
-      Dynatrace RAP for .NET. SSRF and Path Traversal are not
-      currently detected.
+NOTE: This demo currently includes SQL Injection and Command Injection.
+      Other categories are not wired into the .NET plugin yet.
 ";
     }
 }

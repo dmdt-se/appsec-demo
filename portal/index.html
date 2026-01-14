@@ -40,33 +40,33 @@
         <span class="pill">Catalog-backed</span>
       </div>
       <div class="attacks-layout">
-        <div class="attack-menu">
-          <div class="menu-title">Attack types</div>
-          <div class="attack-list" data-attack-list>
+        <div class="attack-library">
+          <div class="menu-title">Attack library</div>
+          <div class="attack-grid" data-attack-grid>
             <p class="muted-text">Loading catalog...</p>
           </div>
         </div>
-        <div class="attack-content">
-          <div class="attack-summary">
-            <div class="attack-header">
-              <h3 data-attack-title>Choose an attack</h3>
-              <div class="attack-tags" data-attack-tags></div>
-            </div>
-            <p class="attack-description" data-attack-summary></p>
-            <div class="attack-variants">
-              <h4>Attack variants</h4>
-              <div class="variant-list" data-attack-variants></div>
-            </div>
+        <aside class="attack-console">
+          <div class="console-header">
+            <h3>Target stack</h3>
+            <span class="pill">One network</span>
           </div>
-          <div class="attack-apps">
-            <div class="menu-title">Target stack</div>
-            <div class="app-list" data-app-list></div>
-            <div class="attack-launch">
-              <a class="card-link" data-attack-launch href="#">Select a stack</a>
-              <span class="launch-note" data-attack-launch-note></span>
+          <p class="console-subtitle">Apply the active attack to any runtime stack on the shared Docker network.</p>
+          <div class="app-list" data-app-list></div>
+          <div class="attack-context">
+            <div class="context-label">Active selection</div>
+            <div class="context-title" data-active-attack-title>Choose an attack</div>
+            <div class="context-variant" data-active-variant-title>Select a variant</div>
+            <div class="context-payload">
+              <code data-active-variant-payload></code>
             </div>
+            <div class="context-actions">
+              <button class="ghost-button" type="button" data-copy-payload>Copy payload</button>
+              <a class="card-link disabled" data-attack-launch href="#">Select a stack</a>
+            </div>
+            <span class="launch-note" data-attack-launch-note></span>
           </div>
-        </div>
+        </aside>
       </div>
     </section>
 

@@ -46,13 +46,20 @@
                             <strong>SQL Injection Attack</strong>
                         </div>
                         <div class="card-body">
-                            <form method="post">
+                            <form method="post" data-attack-form data-attack-id="sqli">
                                 <input type="hidden" name="Scenario" value="sql-attack" />
-                                <input type="hidden" name="Parameter" value="' OR '1'='1' --" />
+                                <input type="hidden" name="Parameter" value="" data-attack-parameter />
+                                <div class="mb-3">
+                                    <label class="form-label">Variant</label>
+                                    <select class="form-select" data-attack-variant></select>
+                                </div>
+                                <span class="badge bg-secondary mb-2" data-attack-compatibility></span>
+                                <div class="mb-2 text-muted" data-attack-description></div>
+                                <code class="d-block mb-3" data-attack-payload></code>
                                 <button type="submit" class="btn btn-danger w-100">Execute Attack</button>
                             </form>
                             <div class="mt-2">
-                                <small class="text-muted"><code>SearchUsers("' OR '1'='1' --")</code></small>
+                                <small class="text-muted"><code>SearchUsers(payload)</code></small>
                             </div>
                         </div>
                     </div>
@@ -73,13 +80,20 @@
                             <strong>Command Injection Attack</strong>
                         </div>
                         <div class="card-body">
-                            <form method="post">
+                            <form method="post" data-attack-form data-attack-id="cmdi">
                                 <input type="hidden" name="Scenario" value="cmd-attack" />
-                                <input type="hidden" name="Parameter" value="cat /etc/passwd" />
+                                <input type="hidden" name="Parameter" value="" data-attack-parameter />
+                                <div class="mb-3">
+                                    <label class="form-label">Variant</label>
+                                    <select class="form-select" data-attack-variant></select>
+                                </div>
+                                <span class="badge bg-secondary mb-2" data-attack-compatibility></span>
+                                <div class="mb-2 text-muted" data-attack-description></div>
+                                <code class="d-block mb-3" data-attack-payload></code>
                                 <button type="submit" class="btn btn-danger w-100">Execute Attack</button>
                             </form>
                             <div class="mt-2">
-                                <small class="text-muted"><code>ExecuteCommand("cat /etc/passwd")</code></small>
+                                <small class="text-muted"><code>ExecuteCommand(payload)</code></small>
                             </div>
                         </div>
                     </div>

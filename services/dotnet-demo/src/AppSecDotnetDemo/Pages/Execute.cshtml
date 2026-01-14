@@ -66,6 +66,29 @@
     </div>
 }
 
+<div class="row mt-4" data-attack-catalog>
+    <div class="col-md-8">
+        <div class="card border-warning">
+            <div class="card-header bg-warning">Attack Catalog (from portal)</div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Attack type</label>
+                    <select class="form-select" data-attack-type></select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Variant</label>
+                    <select class="form-select" data-attack-variant></select>
+                </div>
+                <span class="badge bg-secondary mb-2" data-attack-compatibility></span>
+                <div class="text-muted mb-2" data-attack-description></div>
+                <code class="d-block mb-3" data-attack-payload></code>
+                <button type="button" class="btn btn-outline-primary" data-attack-fill>Fill form</button>
+                <small class="text-muted d-block mt-2">Select a variant to auto-fill the execute form above.</small>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row mt-4">
     <div class="col-12">
         <div class="card border-info">

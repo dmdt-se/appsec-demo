@@ -74,7 +74,7 @@ public class Backdoor
         results.AppendLine();
         results.AppendLine("=== Malicious Plugin Execution Complete ===");
         results.AppendLine();
-        results.AppendLine("Dynatrace should now show security alerts for:");
+        results.AppendLine("Actions performed:");
         results.AppendLine("  - Unknown assembly loaded via reflection");
         results.AppendLine("  - Process creation from web application context");
         results.AppendLine("  - Sensitive file access (/etc/passwd)");
