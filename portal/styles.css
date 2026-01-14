@@ -260,7 +260,7 @@ main {
 .attacks-layout {
   display: grid;
   gap: 22px;
-  grid-template-columns: minmax(0, 2fr) minmax(260px, 0.9fr);
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
 }
 
@@ -309,10 +309,8 @@ main {
 }
 
 .attack-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
+  display: grid;
+  gap: 6px;
 }
 
 .attack-card h3 {
@@ -324,12 +322,16 @@ main {
   margin: 6px 0 0;
   font-size: 0.9rem;
   color: var(--ink-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.4em;
 }
 
-.attack-card-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+.variant-row {
+  display: grid;
+  gap: 8px;
 }
 
 .variant-label {
@@ -359,16 +361,9 @@ main {
   margin: 0;
   color: var(--ink-muted);
   font-size: 0.9rem;
+  min-height: 2.6em;
 }
 
-.variant-details code {
-  display: block;
-  padding: 8px 10px;
-  border-radius: 10px;
-  background: rgba(16, 22, 27, 0.08);
-  font-size: 0.8rem;
-  word-break: break-word;
-}
 
 .attack-console {
   background: var(--surface);
@@ -500,6 +495,29 @@ main {
 .muted-text {
   color: var(--ink-muted);
   margin: 0;
+}
+
+.primary-cta {
+  margin-top: 20px;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 10px 18px rgba(46, 29, 255, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cta-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 24px rgba(46, 29, 255, 0.3);
 }
 
 .compare-section {
